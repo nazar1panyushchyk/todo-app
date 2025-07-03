@@ -11,6 +11,8 @@ export default class TodoEditor extends Component {
     e.preventDefault();
     const { textValue } = this.state;
     console.log(textValue);
+    this.props.onSubmit(textValue);
+    this.setState({ textValue: ""});
   };
   render() {
     return (
@@ -19,6 +21,7 @@ export default class TodoEditor extends Component {
           type="text"
           onChange={this.handleChange}
           value={this.state.textValue}
+          required
         />
         <button>Додати</button>
       </form>
