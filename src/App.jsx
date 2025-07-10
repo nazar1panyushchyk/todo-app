@@ -3,6 +3,8 @@ import TodoList from "./components/TodoList.jsx";
 import initialTodos from "./todo.json";
 import { Component } from "react";
 import TodoEditor from "./components/TodoEditor.jsx";
+import Filter from "./components/Filter.jsx";
+import Info from "./components/Info.jsx"
 
 class App extends Component {
   state = {
@@ -33,15 +35,30 @@ class App extends Component {
       todos: prevState.todos.filter((todo) => todo.id !== id),
     }));
   };
+  handleFilter = (value) => {
+    this.setState({ filter: value });
+  };
+  getFilteredTodos = () => {
+    const { todos, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return todos.filter((todo) =>
+      todo.text.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   render() {
     return (
       <>
         <TodoEditor onSubmit={this.addTodo} />
         <TodoList
-          todos={this.state.todos}
+          todos={this.getFilteredTodos()}
           onToggleCompleted={this.onToggleCompleted}
           onDelete={this.onDelete}
+          handleFilter={this.handleFilter}
         />
+
+        <Filter onFilterChange={this.handleFilter} value={this.state.filter} />
+        <Info />
       </>
     );
   }
