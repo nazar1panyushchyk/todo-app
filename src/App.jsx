@@ -58,7 +58,7 @@ class App extends Component {
         />
 
         <Filter onFilterChange={this.handleFilter} value={this.state.filter} />
-        <Info />
+        <Info total={this.state.todos.length} completed={this.state.todos.filter(todo => todo.completed).length} />
       </>
     );
   }
