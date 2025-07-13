@@ -1,4 +1,20 @@
 import { Component } from "react";
+import styled from "styled-components";
+
+const AddButton = styled.button`
+  background-color: #657a00;
+  border: solid 2px black;
+`;
+const AddInput = styled.input`
+  width: 300px;
+  height: 35px;
+  border-radius: 50px;
+  border: solid 2px black;
+`;
+const FormAdd = styled.form`
+  display: flex;
+  justify-content: space-around;
+`;
 
 export default class TodoEditor extends Component {
   state = {
@@ -16,15 +32,15 @@ export default class TodoEditor extends Component {
   };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
+      <FormAdd onSubmit={this.handleSubmit}>
+        <AddInput
           type="text"
           onChange={this.handleChange}
           value={this.state.textValue}
           required
         />
-        <button>Додати</button>
-      </form>
+        <AddButton>Додати</AddButton>
+      </FormAdd>
     );
   }
 }

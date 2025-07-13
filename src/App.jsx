@@ -4,7 +4,19 @@ import initialTodos from "./todo.json";
 import { Component } from "react";
 import TodoEditor from "./components/TodoEditor.jsx";
 import Filter from "./components/Filter.jsx";
-import Info from "./components/Info.jsx"
+import Info from "./components/Info.jsx";
+import styled from "styled-components";
+
+
+const TodoInterface = styled.div`
+  background-color: #beef00;
+  width: 550px;
+  height: 550px;
+  border-radius: 50px;
+  color: black;
+  font-weight: bold;
+`;
+
 
 class App extends Component {
   state = {
@@ -48,18 +60,20 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <TodoInterface>
+        <Info
+          total={this.state.todos.length}
+          completed={this.state.todos.filter((todo) => todo.completed).length}
+        />
         <TodoEditor onSubmit={this.addTodo} />
+        <Filter onFilterChange={this.handleFilter} value={this.state.filter} />
         <TodoList
           todos={this.getFilteredTodos()}
           onToggleCompleted={this.onToggleCompleted}
           onDelete={this.onDelete}
           handleFilter={this.handleFilter}
         />
-
-        <Filter onFilterChange={this.handleFilter} value={this.state.filter} />
-        <Info total={this.state.todos.length} completed={this.state.todos.filter(todo => todo.completed).length} />
-      </>
+      </TodoInterface>
     );
   }
 }
